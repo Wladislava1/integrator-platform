@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+html[data-theme="light"] {
+  --background: #f3faf5;
+  --foreground: #123126;
+  --surface: #ffffff;
+  --muted: #5b7466;
+  --border: #cfe3d6;
+  --brand: #1f8a55;
+  --brand-strong: #146b40;
+  --brand-soft: #ddf3e6;
+  --danger: #b42318;
+  --placeholder: #9bb8a6;
+  --grid: rgba(31, 138, 85, 0.08);
+}
+
+html[data-theme="dark"] {
+  --background: #0d1a14;
+  --foreground: #e7f6ee;
+  --surface: #13241c;
+  --muted: #9bb8a6;
+  --border: #254435;
+  --brand: #3ecf8e;
+  --brand-strong: #6ee7b7;
+  --brand-soft: #1a3428;
+  --danger: #f97066;
+  --placeholder: #4d6b5b;
+  --grid: rgba(62, 207, 142, 0.07);
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(31, 138, 85, 0.14), transparent 42%),
+    radial-gradient(circle at 88% 0%, rgba(20, 107, 64, 0.12), transparent 36%),
+    linear-gradient(180deg, transparent, transparent);
+  min-height: 100vh;
+}
+
+.auth-bg {
+  background-image:
+    linear-gradient(135deg, rgba(31, 138, 85, 0.12), transparent 45%),
+    linear-gradient(320deg, rgba(20, 107, 64, 0.1), transparent 40%),
+    radial-gradient(circle at 50% 120%, rgba(31, 138, 85, 0.18), transparent 55%);
+}
+
+.input-field {
+  @apply w-full rounded-xl border px-3.5 py-2.5 text-sm outline-none transition;
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--foreground);
+}
+
+.input-field:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 25%, transparent);
+}
+
+.btn-primary {
+  @apply w-full rounded-xl px-4 py-2.5 text-sm font-medium text-white transition;
+  background: linear-gradient(180deg, var(--brand), var(--brand-strong));
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.product-slot {
+  border: 2px dashed var(--placeholder);
+  border-radius: 1rem;
+  min-height: 160px;
+  background:
+    linear-gradient(135deg, transparent 40%, var(--grid) 40%, var(--grid) 60%, transparent 60%),
+    color-mix(in srgb, var(--surface) 80%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
