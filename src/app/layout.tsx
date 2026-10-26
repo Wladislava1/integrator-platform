@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
+import "@fontsource/manrope/400.css";
+import "@fontsource/manrope/500.css";
+import "@fontsource/manrope/600.css";
+import "@fontsource/manrope/700.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Связь ID — Integrator Platform",
+  title: "Связь ID — Платформа интеграций",
   description:
     "Платформа единого входа Связь ID для подключения внешних продуктов через единую учётную запись",
 };

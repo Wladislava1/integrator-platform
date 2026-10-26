@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { IoPower } from "react-icons/io5";
 import { Logo } from "./Logo";
 import { HeaderThemeMenu } from "./HeaderThemeMenu";
 
@@ -10,9 +11,19 @@ const links = [
   { href: "/profile", label: "Профиль" },
 ];
 
+function initials(fullName: string) {
+  return fullName
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => p[0]?.toUpperCase() ?? "")
+    .join("") || "?";
+}
+
 export function AppHeader({ fullName }: { fullName: string }) {
   const pathname = usePathname();
   const router = useRouter();
+  const avatar = initials(fullName);
 
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -44,13 +55,23 @@ export function AppHeader({ fullName }: { fullName: string }) {
         </nav>
         <div className="flex items-center gap-2 sm:gap-3" data-header-actions>
           <HeaderThemeMenu />
-          <span className="hidden text-sm text-[var(--muted)] sm:inline">{fullName}</span>
+          <Link
+            href="/profile"
+            title="Профиль"
+            aria-label="Профиль"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold text-white transition hover:opacity-90"
+            style={{ background: "linear-gradient(145deg, var(--brand), var(--brand-strong))" }}
+          >
+            {avatar}
+          </Link>
           <button
             type="button"
             onClick={logout}
-            className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--foreground)] hover:bg-[var(--brand-soft)]"
+            title="выйти"
+            aria-label="выйти"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ffd6d6] text-[#e53935] transition hover:bg-[#ffc4c4]"
           >
-            Выйти
+            <IoPower size={22} aria-hidden />
           </button>
         </div>
       </div>

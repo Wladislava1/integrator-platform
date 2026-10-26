@@ -39,7 +39,7 @@ export default function LoginPage() {
   return (
     <AuthCard
       title="Вход"
-      subtitle="Единый доступ Связь ID к Integrator Platform"
+      subtitle="Единый доступ Связь ID к Платформе интеграций"
       footer={
         <>
           Нет аккаунта?{" "}

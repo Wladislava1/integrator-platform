@@ -1,13 +1,21 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { IoIosColorPalette } from "react-icons/io";
+import { FaCircleHalfStroke } from "react-icons/fa6";
+import { IoMoonSharp, IoSunny } from "react-icons/io5";
 import { useTheme } from "./ThemeProvider";
 import type { Theme } from "@/lib/types";
 
-const OPTIONS: Array<{ id: Theme; title: string; caption: string; icon: string }> = [
-  { id: "auto", title: "Авто", caption: "Системная", icon: "◐" },
-  { id: "light", title: "Светлая", caption: "Дневная", icon: "☀" },
-  { id: "dark", title: "Тёмная", caption: "Ночная", icon: "☾" },
+const OPTIONS: Array<{
+  id: Theme;
+  title: string;
+  caption: string;
+  Icon: typeof IoSunny;
+}> = [
+  { id: "auto", title: "Авто", caption: "Системная", Icon: FaCircleHalfStroke },
+  { id: "light", title: "Светлая", caption: "Дневная", Icon: IoSunny },
+  { id: "dark", title: "Тёмная", caption: "Ночная", Icon: IoMoonSharp },
 ];
 
 export function HeaderThemeMenu() {
@@ -66,9 +74,7 @@ export function HeaderThemeMenu() {
         disabled={saving}
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="text-xl leading-none" aria-hidden>
-          ◈
-        </span>
+        <IoIosColorPalette size={28} aria-hidden />
       </button>
       {open ? (
         <div
@@ -78,6 +84,7 @@ export function HeaderThemeMenu() {
         >
           {OPTIONS.map((opt) => {
             const selected = theme === opt.id;
+            const Icon = opt.Icon;
             return (
               <button
                 key={opt.id}
@@ -91,9 +98,7 @@ export function HeaderThemeMenu() {
                 }`}
                 onClick={() => choose(opt.id)}
               >
-                <span className="w-4 text-center" aria-hidden>
-                  {opt.icon}
-                </span>
+                <Icon size={16} className="shrink-0" aria-hidden />
                 <span className="min-w-0 leading-tight">
                   <span className="block font-medium">{opt.title}</span>
                   <span className="block text-xs text-[var(--muted)]">{opt.caption}</span>

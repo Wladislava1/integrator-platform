@@ -1,0 +1,258 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Связь ID — Платформа интеграций",
+    "description": "API единого входа и профиля физического лица (Lab 1). Данные пока хранятся локально; PostgreSQL подключается в следующих работах.",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Локальная разработка"
+    }
+  ],
+  "tags": [
+    { "name": "Auth", "description": "Регистрация, вход, выход, текущий пользователь" },
+    { "name": "Profile", "description": "Профиль и смена пароля" },
+    { "name": "Settings", "description": "Тема интерфейса" }
+  ],
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Регистрация физического лица",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RegisterRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Пользователь создан, JWT в cookie",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            }
+          },
+          "400": { "description": "Ошибка валидации" },
+          "409": { "description": "Email уже занят" }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Вход по email и паролю",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LoginRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный вход, JWT в httpOnly cookie",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            }
+          },
+          "401": { "description": "Неверный email или пароль" }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Выход (очистка cookie)",
+        "responses": {
+          "200": { "description": "Сессия завершена" }
+        }
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Текущий пользователь по cookie",
+        "responses": {
+          "200": {
+            "description": "Профиль",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            }
+          },
+          "401": { "description": "Не авторизован" }
+        }
+      }
+    },
+    "/api/profile": {
+      "get": {
+        "tags": ["Profile"],
+        "summary": "Получить профиль",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            }
+          },
+          "401": { "description": "Не авторизован" }
+        }
+      },
+      "patch": {
+        "tags": ["Profile"],
+        "summary": "Обновить личные данные",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProfileUpdateRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Сохранено",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            }
+          },
+          "400": { "description": "Ошибка валидации" },
+          "401": { "description": "Не авторизован" }
+        }
+      }
+    },
+    "/api/profile/password": {
+      "post": {
+        "tags": ["Profile"],
+        "summary": "Смена пароля",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PasswordChangeRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Пароль изменён" },
+          "400": { "description": "Неверный текущий пароль или валидация" },
+          "401": { "description": "Не авторизован" }
+        }
+      }
+    },
+    "/api/settings/theme": {
+      "patch": {
+        "tags": ["Settings"],
+        "summary": "Сохранить тему (light | dark | auto)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["theme"],
+                "properties": {
+                  "theme": { "type": "string", "enum": ["light", "dark", "auto"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Тема сохранена",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            }
+          },
+          "401": { "description": "Не авторизован" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegisterRequest": {
+        "type": "object",
+        "required": ["lastName", "firstName", "email", "password", "confirmPassword"],
+        "properties": {
+          "lastName": { "type": "string", "example": "Иванова" },
+          "firstName": { "type": "string", "example": "Анна" },
+          "middleName": { "type": "string", "example": "Сергеевна" },
+          "email": { "type": "string", "format": "email", "example": "anna@example.com" },
+          "password": { "type": "string", "format": "password", "minLength": 6 },
+          "confirmPassword": { "type": "string", "format": "password" }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": { "type": "string", "format": "email" },
+          "password": { "type": "string", "format": "password" }
+        }
+      },
+      "ProfileUpdateRequest": {
+        "type": "object",
+        "required": ["lastName", "firstName"],
+        "properties": {
+          "lastName": { "type": "string" },
+          "firstName": { "type": "string" },
+          "middleName": { "type": "string" },
+          "phone": { "type": "string", "example": "+7 (900) 123-45-67" },
+          "gender": { "type": "string", "enum": ["male", "female", ""] },
+          "address": { "type": "string" },
+          "birthDate": { "type": "string", "example": "2004-03-21" }
+        }
+      },
+      "PasswordChangeRequest": {
+        "type": "object",
+        "required": ["currentPassword", "newPassword", "confirmPassword"],
+        "properties": {
+          "currentPassword": { "type": "string", "format": "password" },
+          "newPassword": { "type": "string", "format": "password", "minLength": 8 },
+          "confirmPassword": { "type": "string", "format": "password" }
+        }
+      },
+      "PublicUser": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "email": { "type": "string" },
+          "lastName": { "type": "string" },
+          "firstName": { "type": "string" },
+          "middleName": { "type": "string" },
+          "fullName": { "type": "string" },
+          "phone": { "type": "string" },
+          "gender": { "type": "string" },
+          "address": { "type": "string" },
+          "birthDate": { "type": "string" },
+          "avatarUrl": { "type": "string", "nullable": true },
+          "theme": { "type": "string", "enum": ["light", "dark", "auto"] }
+        }
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "user": { "$ref": "#/components/schemas/PublicUser" }
+        }
+      }
+    }
+  }
+}

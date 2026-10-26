@@ -3,16 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --font-sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --font-display: Georgia, "Times New Roman", serif;
+  --font-sans: "Manrope", "Segoe UI", sans-serif;
+  --font-display: "Manrope", "Segoe UI", sans-serif;
 }
 
-.font-sans {
-  font-family: var(--font-sans);
-}
-
+.font-sans,
 .font-display {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
 }
 
 :root,
@@ -49,6 +46,7 @@ html[data-theme="dark"] {
 }
 
 body {
+  font-family: var(--font-sans);
   color: var(--foreground);
   background: var(--background);
   background-image:

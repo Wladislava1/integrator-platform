@@ -5,7 +5,7 @@ type LogoProps = {
 
 const sizes = { sm: 36, md: 48, lg: 64 };
 
-/** Круглый знак: смесь букв «Связь ID» в кольце (как на референсе) */
+/** Круглый знак: смесь букв «Связь ID» в кольце */
 export function SvyazMark({ size = 48, className = "" }: { size?: number; className?: string }) {
   return (
     <svg
@@ -19,8 +19,7 @@ export function SvyazMark({ size = 48, className = "" }: { size?: number; classN
     >
       <circle cx="50" cy="50" r="48" fill="var(--brand, #1f8a55)" />
       <circle cx="50" cy="50" r="42" stroke="white" strokeWidth="2.2" fill="none" opacity="0.9" />
-      {/* Переплетённые буквы по кругу */}
-      <g fill="white" fontFamily="Georgia, 'Times New Roman', serif" fontWeight="700">
+      <g fill="white" fontFamily="Manrope, sans-serif" fontWeight="700">
         <text x="50" y="28" textAnchor="middle" fontSize="16">
           С
         </text>
@@ -51,7 +50,7 @@ export function SvyazMark({ size = 48, className = "" }: { size?: number; classN
         y="54"
         textAnchor="middle"
         fill="white"
-        fontFamily="system-ui, sans-serif"
+        fontFamily="Manrope, sans-serif"
         fontWeight="700"
         fontSize="11"
         letterSpacing="1"
@@ -69,10 +68,10 @@ export function Logo({ size = "md", showText = true }: LogoProps) {
       <SvyazMark size={dim} />
       {showText ? (
         <div className="leading-tight">
-          <div className="font-display text-[var(--brand)] font-semibold tracking-tight">
+          <div className="font-sans text-[var(--brand)] font-semibold tracking-tight">
             Связь ID
           </div>
-          <div className="text-xs text-[var(--muted)]">Integrator Platform</div>
+          <div className="text-xs text-[var(--muted)]">Платформа интеграций</div>
         </div>
       ) : null}
     </div>

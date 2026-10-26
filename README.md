@@ -40,6 +40,10 @@ npm run dev
 npm run smoke
 ```
 
+Swagger UI: [http://localhost:3000/api-docs](http://localhost:3000/api-docs) (спека `public/openapi.json`).
+
+План рассказа преподу: [docs/demo-plan.md](docs/demo-plan.md).
+
 ## Скриншоты
 
 | Экран | Файл |
