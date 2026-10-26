@@ -27,7 +27,7 @@ function genderLabel(g: Gender) {
 
 function Field({ label, value }: { label: string; value: string }) {
   return (
-    <div className="min-w-0 space-y-1">
+    <div className="min-w-0 space-y-0.5">
       <div className="field-label">{label}</div>
       <div className="field-value">{value || "—"}</div>
     </div>
@@ -113,40 +113,40 @@ export function ProfilePage({ user }: { user: PublicUser }) {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
+    <div className="mx-auto max-w-4xl space-y-3">
+      <div className="grid gap-3 lg:grid-cols-[200px_minmax(0,1fr)]">
         <aside>
-          <div className="lk-card flex items-center gap-3">
+          <div className="lk-card flex items-center gap-2.5 !p-3">
             <div
-              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-lg font-semibold text-white"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white"
               style={{ background: "linear-gradient(145deg, var(--brand), var(--brand-strong))" }}
             >
               {avatar}
             </div>
             <div className="min-w-0">
-              <div className="truncate font-semibold">{data.fullName || "Без имени"}</div>
-              <div className="text-sm text-[var(--muted)]">Физическое лицо</div>
+              <div className="truncate text-sm font-semibold">{data.fullName || "Без имени"}</div>
+              <div className="text-xs text-[var(--muted)]">Физическое лицо</div>
             </div>
           </div>
         </aside>
 
-        <section className="lk-card space-y-5">
-          <div className="flex items-center gap-2.5">
+        <section className="lk-card space-y-3 !p-3.5">
+          <div className="flex items-center gap-2">
             <span
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-white"
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-white"
               style={{ background: "var(--brand)" }}
               aria-hidden
             >
-              <FaAddressCard size={16} />
+              <FaAddressCard size={14} />
             </span>
-            <h2 className="text-xl font-semibold leading-8 text-[var(--brand-strong)]">
+            <h2 className="text-base font-semibold leading-7 text-[var(--brand-strong)]">
               Личные данные
             </h2>
           </div>
 
           {!editing ? (
             <>
-              <div className="grid grid-cols-1 gap-x-8 gap-y-5 md:grid-cols-2 lg:grid-cols-4">
+              <div className="grid grid-cols-1 gap-x-5 gap-y-2.5 md:grid-cols-2 lg:grid-cols-4">
                 <Field label="Email" value={data.email} />
                 <Field label="Дата рождения" value={formatBirth(data.birthDate)} />
                 <Field label="Телефон" value={data.phone} />
@@ -163,9 +163,9 @@ export function ProfilePage({ user }: { user: PublicUser }) {
               </button>
             </>
           ) : (
-            <form className="space-y-4" onSubmit={saveProfile}>
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                <label className="space-y-1.5">
+            <form className="space-y-2.5" onSubmit={saveProfile}>
+              <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+                <label className="space-y-1">
                   <span className="field-label">Фамилия *</span>
                   <input
                     className="input-field"
@@ -174,7 +174,7 @@ export function ProfilePage({ user }: { user: PublicUser }) {
                     required
                   />
                 </label>
-                <label className="space-y-1.5">
+                <label className="space-y-1">
                   <span className="field-label">Имя *</span>
                   <input
                     className="input-field"
@@ -183,7 +183,7 @@ export function ProfilePage({ user }: { user: PublicUser }) {
                     required
                   />
                 </label>
-                <label className="space-y-1.5">
+                <label className="space-y-1">
                   <span className="field-label">Отчество</span>
                   <input
                     className="input-field"
@@ -192,12 +192,12 @@ export function ProfilePage({ user }: { user: PublicUser }) {
                   />
                 </label>
               </div>
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                <label className="space-y-1.5">
+              <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+                <label className="space-y-1">
                   <span className="field-label">Email *</span>
                   <input className="input-field" value={data.email} disabled />
                 </label>
-                <label className="space-y-1.5">
+                <label className="space-y-1">
                   <span className="field-label">Телефон</span>
                   <input
                     className="input-field"
@@ -205,9 +205,9 @@ export function ProfilePage({ user }: { user: PublicUser }) {
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   />
                 </label>
-                <fieldset className="space-y-1.5">
+                <fieldset className="space-y-1">
                   <legend className="field-label">Пол *</legend>
-                  <div className="flex gap-4 pt-2">
+                  <div className="flex gap-4 pt-1">
                     {(
                       [
                         ["male", "Мужской"],
@@ -227,8 +227,8 @@ export function ProfilePage({ user }: { user: PublicUser }) {
                   </div>
                 </fieldset>
               </div>
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-                <label className="space-y-1.5">
+              <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+                <label className="space-y-1">
                   <span className="field-label">Адрес</span>
                   <input
                     className="input-field"
@@ -236,7 +236,7 @@ export function ProfilePage({ user }: { user: PublicUser }) {
                     onChange={(e) => setForm({ ...form, address: e.target.value })}
                   />
                 </label>
-                <label className="space-y-1.5">
+                <label className="space-y-1">
                   <span className="field-label">Дата рождения</span>
                   <input
                     className="input-field"
@@ -275,31 +275,30 @@ export function ProfilePage({ user }: { user: PublicUser }) {
         </section>
       </div>
 
-      {/* На всю ширину контейнера: от аватара до конца данных */}
-      <section className="lk-card space-y-5" id="settings">
-        <div className="flex items-start gap-2.5">
+      <section className="lk-card space-y-3 !p-3.5" id="settings">
+        <div className="flex items-start gap-2">
           <span
-            className="mt-0.5 flex h-[1.75rem] w-[1.75rem] shrink-0 items-center justify-center rounded-md text-white"
+            className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-white"
             style={{ background: "var(--brand)" }}
             aria-hidden
           >
-            <IoSettingsSharp size={14} />
+            <IoSettingsSharp size={13} />
           </span>
           <div className="min-w-0 leading-tight">
-            <h2 className="text-xl font-semibold text-[var(--brand-strong)]">Настройки</h2>
-            <p className="mt-0.5 text-sm text-[var(--muted)]">
+            <h2 className="text-base font-semibold text-[var(--brand-strong)]">Настройки</h2>
+            <p className="mt-0.5 text-xs text-[var(--muted)]">
               Управление параметрами аккаунта
             </p>
           </div>
         </div>
 
-        <form className="space-y-4" onSubmit={changePassword}>
+        <form className="space-y-2.5" onSubmit={changePassword}>
           <div className="flex items-center gap-2 text-[var(--brand-strong)]">
-            <FaKey size={16} aria-hidden />
-            <h3 className="font-semibold">Смена пароля</h3>
+            <FaKey size={14} aria-hidden />
+            <h3 className="text-sm font-semibold">Смена пароля</h3>
           </div>
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-            <label className="space-y-1.5">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+            <label className="space-y-1">
               <span className="field-label">Текущий пароль</span>
               <input
                 className="input-field"
@@ -313,7 +312,7 @@ export function ProfilePage({ user }: { user: PublicUser }) {
                 Введите текущий пароль для подтверждения
               </span>
             </label>
-            <label className="space-y-1.5">
+            <label className="space-y-1">
               <span className="field-label">Новый пароль</span>
               <input
                 className="input-field"
@@ -327,7 +326,7 @@ export function ProfilePage({ user }: { user: PublicUser }) {
                 Минимум 8 символов, включая цифры
               </span>
             </label>
-            <label className="space-y-1.5">
+            <label className="space-y-1">
               <span className="field-label">Подтвердите пароль</span>
               <input
                 className="input-field"

@@ -62,7 +62,7 @@ body {
 }
 
 .input-field {
-  @apply w-full rounded-[10px] border px-3.5 py-2.5 text-sm outline-none transition;
+  @apply w-full rounded-[10px] border px-3 py-2 text-sm outline-none transition;
   background: var(--surface);
   border-color: var(--border);
   color: var(--foreground);
@@ -94,8 +94,8 @@ body {
 
 .product-slot {
   border: 2px dashed var(--placeholder);
-  border-radius: 1rem;
-  min-height: 160px;
+  border-radius: 0.85rem;
+  min-height: 120px;
   background:
     linear-gradient(135deg, transparent 40%, var(--grid) 40%, var(--grid) 60%, transparent 60%),
     color-mix(in srgb, var(--surface) 80%, transparent);
@@ -107,20 +107,20 @@ body {
 }
 
 .lk-card {
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid var(--border);
   background: var(--lk-card);
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
-  padding: 1.25rem 1.5rem;
+  padding: 0.85rem 1rem;
 }
 
 .field-label {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   color: var(--lk-label);
 }
 
 .field-value {
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--foreground);
   word-break: break-word;

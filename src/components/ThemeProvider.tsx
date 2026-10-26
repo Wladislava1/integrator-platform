@@ -23,33 +23,38 @@ const ThemeContext = createContext<ThemeContextValue>({
 });
 
 function resolveTheme(preference: Theme): "light" | "dark" {
-  if (preference === "auto") {
-    if (typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
-  }
-  return preference;
+  if (preference !== "auto") return preference;
+  if (typeof window === "undefined") return "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 export function ThemeProvider({
-  initialTheme,
+  initialTheme = "light",
   children,
 }: {
   initialTheme?: Theme;
   children: ReactNode;
 }) {
-  const [theme, setThemeState] = useState<Theme>(initialTheme ?? "light");
-  const [resolved, setResolved] = useState<"light" | "dark">("light");
+  // Первый рендер всегда совпадает с SSR — без window/matchMedia
+  const [theme, setThemeState] = useState<Theme>(initialTheme);
+  const [resolved, setResolved] = useState<"light" | "dark">(
+    initialTheme === "dark" ? "dark" : "light",
+  );
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     const next = resolveTheme(theme);
     setResolved(next);
     document.documentElement.dataset.theme = next;
-  }, [theme]);
+  }, [theme, mounted]);
 
   useEffect(() => {
-    if (theme !== "auto") return;
+    if (!mounted || theme !== "auto") return;
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     const onChange = () => {
       const next = resolveTheme("auto");
@@ -58,7 +63,7 @@ export function ThemeProvider({
     };
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
-  }, [theme]);
+  }, [theme, mounted]);
 
   const setTheme = useCallback((next: Theme) => {
     setThemeState(next);

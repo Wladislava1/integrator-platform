@@ -14,7 +14,7 @@ export async function AppShell({ children }: { children: ReactNode }) {
     <ThemeProvider initialTheme={user.theme}>
       <div className="min-h-screen">
         <AppHeader fullName={user.fullName} />
-        <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
+        <main className="mx-auto max-w-5xl px-4 py-5">{children}</main>
       </div>
     </ThemeProvider>
   );

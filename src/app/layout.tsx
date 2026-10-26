@@ -17,8 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" data-theme="light">
-      <body className="font-sans antialiased">{children}</body>
+    <html lang="ru" data-theme="light" suppressHydrationWarning>
+      <body className="font-sans antialiased" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }
