@@ -1,9 +1,9 @@
 @startuml sequence-identity-error
 skinparam defaultFontName Segoe UI
 skinparam dpi 140
-title US-8. Запрос продукта без токена
+title US-8. Запрос тестового продукта без токена
 
-actor "Продукт" as product
+actor "Тестовый продукт" as product
 participant "Платформа" as api
 
 product -> api : GET /api/identity\nзаголовок Authorization отсутствует

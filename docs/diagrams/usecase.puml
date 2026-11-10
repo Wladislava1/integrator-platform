@@ -2,11 +2,13 @@
 !pragma layout smetana
 skinparam defaultFontName Segoe UI
 skinparam dpi 140
+skinparam nodesep 12
+skinparam ranksep 18
 left to right direction
 title Варианты использования
 
 actor "Физическое лицо" as person
-actor "Продукт" as product
+actor "Тестовый продукт" as product
 
 rectangle "Платформа Связь ID" {
   usecase "Зарегистрироваться\nFR-1" as UC1
@@ -19,6 +21,8 @@ rectangle "Платформа Связь ID" {
   usecase "Узнать, кто вошёл\nFR-8" as UC8
 }
 
+usecase "Показать имя\nвошедшего\nFR-9" as UC9
+
 person --> UC1
 person --> UC2
 person --> UC3
@@ -27,11 +31,11 @@ person --> UC5
 person --> UC6
 person --> UC7
 product --> UC8
+product --> UC9
 
-UC3 ..> UC2 : нужна активная сессия
-UC4 ..> UC2 : нужна активная сессия
-UC5 ..> UC2 : нужна активная сессия
-UC6 ..> UC2 : нужна активная сессия
-UC7 ..> UC2 : нужна активная сессия
-UC8 ..> UC2 : нужна активная сессия
+note bottom of UC2
+  FR-3 … FR-8 доступны только
+  при активной сессии.
+  FR-9 для имени вызывает FR-8.
+end note
 @enduml
