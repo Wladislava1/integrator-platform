@@ -1,0 +1,16 @@
+@startuml sequence-identity-error
+skinparam defaultFontName Segoe UI
+skinparam dpi 140
+title US-8. Запрос продукта без токена
+
+actor "Продукт" as product
+participant "Платформа" as api
+
+product -> api : GET /api/identity\nзаголовок Authorization отсутствует
+api --> product : 401\n{ error: "Требуется вход" }
+note right of product
+  Полей id, fullName и email нет.
+  Свою учётную запись
+  продукт не создаёт.
+end note
+@enduml

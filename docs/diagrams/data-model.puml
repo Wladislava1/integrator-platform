@@ -1,0 +1,43 @@
+@startuml data-model
+!pragma layout smetana
+skinparam defaultFontName Segoe UI
+skinparam dpi 140
+skinparam classAttributeIconSize 0
+hide circle
+title Пользователь, сессия, продукт и настройки
+
+class Пользователь {
+  id
+  email
+  хешПароля
+  фамилия
+  имя
+  отчество
+  телефон
+  пол
+  адрес
+  датаРождения
+}
+
+class Сессия {
+  id
+  выпущена
+  истекает
+  состояние
+}
+
+class Продукт {
+  id
+  код
+  название
+  описание
+}
+
+class Настройки {
+  тема
+}
+
+Пользователь "1" --> "0..*" Сессия : открывает
+Пользователь "1" --> "1" Настройки : имеет
+Продукт ..> Пользователь : запрашивает id, имя и email\nсвою копию пользователя не хранит
+@enduml
