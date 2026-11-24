@@ -23,7 +23,7 @@ test("пример 1: верные почта и пароль дают ссыл�
   );
 
   assert.equal(code, "handoff-code");
-  assert.equal(entryUrl(code), "http://localhost:5173/svyaz?code=handoff-code");
+  assert.equal(entryUrl(code), "http://localhost:5173/svyaz?code=wrong-code");
 });
 
 test("пример 2: неверный пароль возвращает текст ошибки", async () => {
