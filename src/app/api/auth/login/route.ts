@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createToken, setAuthCookie, verifyPassword } from "@/lib/auth";
 import { buildFullName } from "@/lib/types";
-import { findUserByEmail, toPublicUser } from "@/lib/store";
+import { findUserByEmail, recordSession, toPublicUser } from "@/lib/store";
 import { loginSchema } from "@/lib/validation";
 
 export async function POST(request: Request) {
@@ -27,6 +27,7 @@ export async function POST(request: Request) {
       fullName: buildFullName(user),
     });
     await setAuthCookie(token);
+    await recordSession(user.id, token);
 
     return NextResponse.json({ user: toPublicUser(user) });
   } catch {
