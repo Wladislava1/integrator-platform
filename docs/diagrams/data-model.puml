@@ -1,0 +1,54 @@
+@startuml data-model
+!pragma layout smetana
+skinparam defaultFontName Segoe UI
+skinparam dpi 140
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam linetype ortho
+hide circle
+left to right direction
+title Что хранит платформа
+
+package "Учётная запись" {
+  class Пользователь {
+    id
+    email
+    хеш пароля
+    фамилия
+    имя
+    отчество
+    телефон
+    пол
+    адрес
+    дата рождения
+  }
+
+  class Сессия {
+    id
+    выпущена
+    истекает
+    состояние
+  }
+
+  class Настройки {
+    тема
+  }
+
+  Пользователь "1" --> "0..*" Сессия : открывает
+  Пользователь "1" --> "1" Настройки : имеет
+}
+
+package "Каталог" {
+  class Продукт {
+    id
+    код
+    название
+    описание
+  }
+
+  note right of Продукт
+    Свою копию пользователя не хранит.
+    Имя и email берёт запросом к платформе.
+  end note
+}
+@enduml

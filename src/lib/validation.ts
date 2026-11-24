@@ -14,6 +14,11 @@ export const registerSchema = z
     path: ["confirmPassword"],
   });
 
+export const productLoginSchema = z.object({
+  email: z.string().trim().email("Некорректный email"),
+  password: z.string().min(1, "Введите пароль"),
+});
+
 export const loginSchema = z.object({
   email: z.string().trim().email("Некорректный email"),
   password: z.string().min(1, "Введите пароль"),

@@ -1,0 +1,12 @@
+@startuml state-session
+!pragma layout smetana
+skinparam defaultFontName Segoe UI
+skinparam dpi 140
+title Состояния сессии
+
+[*] --> Активна : создана при входе
+Активна --> Завершена : выход
+Активна --> Истекла : прошло 7 дней
+Завершена --> [*]
+Истекла --> [*]
+@enduml

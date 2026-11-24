@@ -1,0 +1,18 @@
+@startuml context
+!pragma layout smetana
+skinparam defaultFontName Segoe UI
+skinparam dpi 140
+left to right direction
+title Контекст платформы Связь ID
+
+actor "Физическое лицо" as person
+rectangle "Платформа\nСвязь ID" as platform
+rectangle "Тестовый продукт\n(отдельное приложение)" as product
+database "PostgreSQL\n(к концу семестра)" as db
+
+person --> platform : регистрация, вход,\nкаталог, профиль, тема
+person --> product : открывает из каталога
+product --> platform : кто вошёл\n(id, имя, email)
+product --> person : показывает имя и email
+platform --> db : пользователи и сессии
+@enduml

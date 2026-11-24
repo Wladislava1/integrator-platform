@@ -1,0 +1,18 @@
+@startuml sequence-login
+skinparam defaultFontName Segoe UI
+skinparam dpi 140
+title US-2. Успешный вход
+
+actor "Физическое лицо" as user
+participant "Страница входа" as ui
+participant "Платформа" as api
+participant "Хранилище\nпользователей" as store
+
+user -> ui : email и пароль
+ui -> api : POST /api/auth/login
+api -> store : найти пользователя по email
+store --> api : пользователь и хеш пароля
+api -> api : сверить пароль с хешем
+api --> ui : 200, cookie svyaz_id_token\nсессия активна 7 дней
+ui --> user : каталог
+@enduml

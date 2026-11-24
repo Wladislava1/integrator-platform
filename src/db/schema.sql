@@ -44,3 +44,11 @@ CREATE TABLE IF NOT EXISTS user_settings (
                  CHECK (theme IN ('light', 'dark', 'auto')),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS product_links (
+    user_id       UUID         NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    product_slug  VARCHAR(100) NOT NULL,
+    product_email VARCHAR(255) NOT NULL,
+    created_at    TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (user_id, product_slug)
+);

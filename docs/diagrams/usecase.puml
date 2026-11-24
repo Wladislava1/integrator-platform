@@ -1,0 +1,41 @@
+@startuml usecase
+!pragma layout smetana
+skinparam defaultFontName Segoe UI
+skinparam dpi 140
+skinparam nodesep 12
+skinparam ranksep 18
+left to right direction
+title Варианты использования
+
+actor "Физическое лицо" as person
+actor "Тестовый продукт" as product
+
+rectangle "Платформа Связь ID" {
+  usecase "Зарегистрироваться\nFR-1" as UC1
+  usecase "Войти\nFR-2" as UC2
+  usecase "Выйти\nFR-3" as UC3
+  usecase "Смотреть каталог\nFR-4" as UC4
+  usecase "Изменить личные данные\nFR-5" as UC5
+  usecase "Сменить пароль\nFR-6" as UC6
+  usecase "Сменить тему\nFR-7" as UC7
+  usecase "Узнать, кто вошёл\nFR-8" as UC8
+}
+
+usecase "Показать имя\nвошедшего\nFR-9" as UC9
+
+person --> UC1
+person --> UC2
+person --> UC3
+person --> UC4
+person --> UC5
+person --> UC6
+person --> UC7
+product --> UC8
+product --> UC9
+
+note bottom of UC2
+  FR-3 … FR-8 доступны только
+  при активной сессии.
+  FR-9 для имени вызывает FR-8.
+end note
+@enduml

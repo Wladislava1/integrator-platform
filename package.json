@@ -12,6 +12,7 @@
     "start": "next start -p 3000",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "test": "node --import ./tests/env.mjs --import tsx --test tests/poteryashki-link.test.ts",
     "smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "bcryptjs": "^3.0.2",
     "jose": "^6.0.11",
     "next": "15.1.0",
+    "pg": "^8.23.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.7.0",
@@ -28,6 +30,7 @@
     "@eslint/eslintrc": "^3",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/swagger-ui-react": "^5.18.0",
@@ -35,6 +38,7 @@
     "eslint-config-next": "15.1.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
