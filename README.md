@@ -61,6 +61,18 @@ npm run dev
 npm run smoke
 ```
 
+### Автоматические проверки
+
+Зависимости ставятся той же командой, что и для запуска:
+
+```bash
+npm ci
+npm test
+npm run build
+```
+
+`npm test` проверяет операцию связи с Потеряшками по двум примерам из [контракта](docs/interface-contract.md). Приложение Потеряшек не нужно: ответ продукта заменён заглушкой. `npm run build` собирает проект. Те же команды запускает GitHub Actions при pull request в `main`: [`.github/workflows/checks.yml`](.github/workflows/checks.yml).
+
 Swagger UI: [http://localhost:3000/api-docs](http://localhost:3000/api-docs) (спека `public/openapi.json`).
 
 План рассказа преподу: [docs/demo-plan.md](docs/demo-plan.md).
